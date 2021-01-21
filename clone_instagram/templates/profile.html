@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-2 offset-3">
+            {% if profile.picture %}
+                <img class="rounded-circle bg-secondary" src="{{ profile.picture.url }}" style="height: 17vh; width: 17vh;">
+            {% else %}
+                <img class="rounded-circle" src="https://bulma.io/images/placeholders/256x256.png" style="height: 17vh; width: 17vh;">
+            {% endif %}
+        </div>
+        <div class="col-3 justify-content-start">
+            <div class="row mb-4">
+                <h3 class="text-muted">{{ profile.user.username }}</h3>
+                {% if user.is_authenticated and user != profile.user %}
+                    {% if follow_status == True %}
+                        <a class="btn btn-danger ml-4" href="{% url 'follow' profile.user 0 %}" role="button">Unfollow</a>
+                    {% else %}
+                        <a class="btn btn-primary ml-4" href="{% url 'follow' profile.user 1 %}" role="button">Follow</a>
+                    {% endif %}
+                {% endif %}
+                {% if user.is_authenticated and user == profile.user %}
+                    <a class="btn btn-outline-secondary ml-4" href="{% url 'edit-profile' %}" role="button">Edit Profile</a> 
+                {% endif %}
+            </div>
+            <div class="row mb-4">
+                <h6 class="text-muted col-4" >{{ post_count }} posts</h6>
+                <h6 class="text-muted col-4" >{{ follower_count }} followers</h6>
+                <h6 class="text-muted col-4" >{{ following_count }} following</h6>
+            </div>
+            <div class="row">
+                <h6 class="col-12" >{% if profile.first_name %} {{ profile.first_name }} {{ profile.last_name }} {% endif %}</h6>
+            </div>
+        </div>
+        <hr class="col-6 offset-3 mt-5 mb-2">
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <h6 class="col-6 offset-3 mt-0 text-muted"> POSTS </h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="row ml-2">
+                {% for post in posts %}
+                    <div class="col-4 my-3">
+                        <div class="card">
+                            <a href="{{ post.get_abs_url }}"><img class="card-img-top" src="{{ post.picture.url }}" alt="Card image cap"></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

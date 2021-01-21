@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-3">
+            <div class="card text-center">
+                <div class="card-body">
+                <h1 class="card-title">New Post</h1>
+                <form method="post" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group col-10 offset-1">
+                    <h6 class="col-12">Choose your picture</h6>
+                    {{ form.picture }}
+                    </div>
+                    <div class="form-group col-10 offset-1">
+                    <h6 class="col-12">Caption</h6>
+                    {{ form.caption }}
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" name="action" class="btn btn-primary col-10">Create</button>
+                    </div>
+
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

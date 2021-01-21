@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card text-center col-6 offset-3" style="min-height: 100%;">
+                <img class="card-img-top" src="{{ post.picture.url }}">
+                <div class="card-body">
+                    <div class="row text-left mb-4">
+                        <div class="col-1">
+                            {% if post.user.profile.picture %}
+                                <img class="card-img rounded-circle bg-secondary" src="{{ post.user.profile.picture.url }}" style="height: 4rem; width: 4rem;">
+                            {% else %}
+                                <img class="card-img rounded-circle" src="https://bulma.io/images/placeholders/256x256.png" style="height: 4rem; width: 4rem;">
+                            {% endif %}
+                        </div>
+                        <div class="col-9">
+                            <h3 class="card-title">{% if post.user.profile.first_name %} 
+                                {{ post.user.profile.first_name }} {{ post.user.profile.last_name }}
+                                {% endif %}</h3>
+                            <h6 class="card-subtitle mb-2 text-muted">@{{ post.user.username}}</h6>
+                        </div>
+                        <div class="col-2 text-center">
+                            {% if post.liked %}
+                                <a href="{% url 'postlikes' post.id %}"><i class="material-icons text-danger">favorite</i></a>
+                                <p>{{ post.likes }} Likes</p>
+                            {% else %}
+                                <a href="{% url 'postlikes' post.id %}"><i class="material-icons-outlined text-secondary">favorite</i></a>
+                                <p>{{ post.likes }} Likes</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                        <p class="card-text text-left">{{ post.caption }}</p>
+                        <p class="card-text text-left"><small class="text-muted">Posted on {{ post.posted }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            
+            <div class="text-left col-6 offset-3 bg-white">
+
+                {% for comment in comments %}
+                    <div class="media">
+                        {% if comment.user.profile.picture %}
+                            <img class="card-img rounded-circle bg-secondary mr-3" src="{{ comment.user.profile.picture.url }}" style="height: 7vh; width: 7vh;">
+                        {% else %}
+                            <img class="card-img rounded-circle mr-3" src="https://bulma.io/images/placeholders/256x256.png" style="height: 7vh; width: 7vh;">
+                        {% endif %}
+                        <div class="media-body"> 
+                            <a href="{% url 'profile' comment.user %}" class="text-dark"><h6>@{{ comment.user.username}}</h6></a>
+                            {{ comment.body}}
+                        </br>
+                        <small> {{ comment.date }} </small>
+                        </div>
+                    </div>
+                    <hr class="w-100">
+                {% endfor %}
+                
+                <form method="post" action="" role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.body }}
+                        <button type="submit" name="action" class="btn btn-primary col-2 mt-3">Post</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+{% endblock %}

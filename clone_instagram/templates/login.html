@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>InstaClone</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+    </head>
+
+    <body class="d-flex flex-column">
+            <div class="jumbotron container-fluid flex-fill">
+                <div class="row justify-content-center">
+                    <div class="col-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                              <h1 class="card-title">InstaClone</h1>
+                              <form method="post" action="">
+                                {% csrf_token %}
+                                <div class="form-group col-10 offset-1">
+                                <h6 class="col-12">Username</h6>
+                                  {{ form.username }}
+                                </div>
+                                <div class="form-group col-10 offset-1">
+                                <h6 class="col-12">Password</h6>
+                                  {{ form.password }}
+                                </div>
+                                {% if form.errors %}
+                                <div class="row">
+                                  <div class="col-10 offset-1">
+                                    <span style="color: red; font-weight: bold;">Your username or password did not match.</span>
+                                  </div>
+                                </div>
+                                {% endif %}
+                                <div class="col-12">
+                                    <button type="submit" value="login" class="btn btn-primary col-10">Log In</button>
+                                
+                                    <input type="hidden" name="next" value="{{ next }}">
+                                    <a href="{% url 'signup' %}" class="col-12">Create an account</a>
+                                </div>
+
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+    </body>
+
+    
+
+</html>

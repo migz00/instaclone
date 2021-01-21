@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row mb-5">
+    <div class="col-12">
+        <form>
+        <div class="input-group col-6 offset-3">
+            <input type="text" class="form-control" name="q" value="{{ request.GET.q }}" placeholder="Search username...">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        {% for user in users %}
+            <div class="card col-6 offset-3">
+                <div class="card-body">
+                    <div class="row text-left mb-4">
+                        <div class="col-1">
+                            {% if user.profile.picture %}
+                                <img class="card-img rounded-circle bg-secondary" src="{{ user.profile.picture.url }}" style="height: 4rem; width: 4rem;">
+                            {% else %}
+                                <img class="card-img rounded-circle" src="https://bulma.io/images/placeholders/256x256.png" style="height: 4rem; width: 4rem;">
+                            {% endif %}
+                        </div>
+                        <div class="col-9">
+                            <h3 class="card-title">{% if user.profile.first_name %} 
+                                {{ user.profile.first_name }} {{ user.profile.last_name }}
+                                {% endif %}</h3>
+                            <h6 class="card-subtitle mb-2 text-muted">@{{ user.username }}</h6>
+                        </div>
+                        <div class="col-2 text-center">
+                                <a href="{% url 'profile' user.username %}"><button class="btn btn-primary" type="button">Profile</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

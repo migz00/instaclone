@@ -43,4 +43,7 @@ Now run the following command
 ```
 py manage.py runserver
 ```
-And view the site at the port provided which is most likely 127.0.0.1:8000
+And view the site:
+*  http://127.0.0.1:8000/user/login/ for Users
+*  http://127.0.0.1:8000/admin/ for Admin 
+  *  admin username: rockstone password: clydemigz@1

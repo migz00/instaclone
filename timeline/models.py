@@ -7,7 +7,7 @@ from django.urls import reverse
 
 # Create your models here.
 def user_directory_path(instance, filename):
-    # users' files directory
+    
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 class Post(models.Model):

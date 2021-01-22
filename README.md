@@ -13,12 +13,6 @@ The users can:
 
 ## Getting Started
 
-*   Fork the repository
-*   git clone the project to your local machine
-*   Set up a virtual environment in the project folder
-
-### Installing
-
 * create virtual environment
 
 ```
